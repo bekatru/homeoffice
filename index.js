@@ -22,6 +22,14 @@ document.body.appendChild( renderer.domElement );
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
+const floorGeometry = new THREE.BoxGeometry( 10, .2, 10 );
+const floorMaterial = new THREE.MeshBasicMaterial( {color: 0x595959} );
+const floorMesh = new THREE.Mesh( floorGeometry, floorMaterial );
+
+floorMesh.position.set(0, -0.1, 0)
+
+scene.add( floorMesh );
+
 function animate() {
   requestAnimationFrame( animate );
   renderer.render( scene, camera );
