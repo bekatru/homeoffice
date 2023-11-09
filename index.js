@@ -11,8 +11,8 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 camera.position.z = 5;
 
 if (SHOW_GRID) {
-  const size = 10;
-  const divisions = 10;
+  const size = 8;
+  const divisions = 8;
   const gridHelper = new THREE.GridHelper( size, divisions );
 
   scene.add( gridHelper );
@@ -22,11 +22,19 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 2
+
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
-const floorGeometry = new THREE.BoxGeometry( 10, .2, 10 );
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
+
+const floorGeometry = new THREE.BoxGeometry( 8, .2, 8 );
 const floorMaterial = new THREE.MeshBasicMaterial( {color: 0x595959} );
 const floorMesh = new THREE.Mesh( floorGeometry, floorMaterial );
 
