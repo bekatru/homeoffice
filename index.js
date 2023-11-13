@@ -75,13 +75,13 @@ loader.load(
 const spotLight = new THREE.SpotLight(0xFFEDCD)
 spotLight.position.set(0, 3, 0)
 spotLight.angle = Math.PI / 2.3
-spotLight.power = 60
+spotLight.power = 80
 spotLight.penumbra = 1
 spotLight.castShadow = true
 
 const hemisphereLight = new THREE.HemisphereLight(0xFFEDCD)
 hemisphereLight.position.set(0, 3, 0)
-hemisphereLight.intensity = 0.3
+hemisphereLight.intensity = 0.5
 
 const pointLight = new THREE.PointLight(0xFFEDCD)
 const pointLightHelper = new PointLightHelper(pointLight, 0.4)
