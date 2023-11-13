@@ -1,5 +1,10 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import {
+  OrbitControls
+} from 'three/addons/controls/OrbitControls.js';
+import {
+  GLTFLoader
+} from 'three/addons/loaders/GLTFLoader.js';
 
 
 const SHOW_GRID = false
@@ -33,9 +38,27 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
+//Loader
+const loader = new GLTFLoader();
+loader.load(
+  './assets/models/homeoffice.glb',
+  function (gltf) {
+    gltf.scene.traverse(function (node) {
+      const wallsObject = gltf.scene.children.find(({ name }) => name === 'Walls')
+      wallsObject.castShadow = false
+      if (node.isMesh) {
+        node.castShadow = true;
+        node.receiveShadow = true
+      }
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1)
-scene.add(ambientLight)
+    });
+    scene.add(gltf.scene);
+  },
+  undefined,
+  function (error) {
+    console.error(error);
+  }
+);
 
 
 const spotLight = new THREE.SpotLight(0xFFEDCD)
