@@ -9,7 +9,7 @@ import {PointLightHelper} from "three";
 
 
 const SHOW_GRID = false
-const SHOW_LIGHT_HELPERS = false
+const SHOW_LIGHT_HELPERS = true
 
 const scene = new THREE.Scene();
 
@@ -68,7 +68,7 @@ loader.load(
 const spotLight = new THREE.SpotLight(0xFFEDCD)
 spotLight.position.set(0, 3, 0)
 spotLight.angle = Math.PI / 2.3
-spotLight.power = 80
+spotLight.power = 60
 spotLight.penumbra = 1
 spotLight.castShadow = true
 
@@ -82,15 +82,25 @@ pointLight.castShadow = true
 pointLight.intensity = 0.5
 pointLight.position.set(1.45, 1, -1)
 
+const pointLight2 = new THREE.PointLight(0xFFEDCD)
+const pointLightHelper2 = new PointLightHelper(pointLight2, 0.2)
+pointLight2.castShadow = true
+pointLight2.intensity = 0.5
+pointLight2.position.set(-2.2, 0.9, -0.48)
+
+
+
 scene.add(
   spotLight,
   hemisphereLight,
-  pointLight
+  pointLight,
+  pointLight2
 )
 
 if (SHOW_LIGHT_HELPERS) {
   scene.add(
-    pointLightHelper
+    pointLightHelper,
+    pointLightHelper2
   )
 }
 
