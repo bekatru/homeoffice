@@ -18,16 +18,19 @@ if (SHOW_GRID) {
   scene.add( gridHelper );
 }
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+//Renderer
+const renderer = new THREE.WebGLRenderer({antialias: true});
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.physicallyCorrectLights = true
+renderer.outputEncoding = THREE.sRGBEncoding
+renderer.toneMapping = THREE.ACESFilmicToneMapping
+renderer.toneMappingExposure = 1
+document.body.appendChild(renderer.domElement);
 
-renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 2
-
-
-const controls = new OrbitControls( camera, renderer.domElement );
+//Controls
+const controls = new OrbitControls(camera, renderer.domElement);
 controls.update();
 
 
