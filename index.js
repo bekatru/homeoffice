@@ -68,10 +68,14 @@ spotLight.power = 80
 spotLight.penumbra = 1
 spotLight.castShadow = true
 
-scene.add(spotLight)
+const hemisphereLight = new THREE.HemisphereLight(0xFFEDCD)
+hemisphereLight.position.set(0, 3, 0)
+hemisphereLight.intensity = 0.3
 
-const spotLightHelper = new THREE.SpotLightHelper(spotLight);
-scene.add(spotLightHelper);
+scene.add(
+  spotLight,
+  hemisphereLight,
+)
 
 function animate() {
   requestAnimationFrame( animate );
