@@ -45,6 +45,8 @@ loader.load(
   function (gltf) {
     gltf.scene.traverse(function (node) {
       const wallsObject = gltf.scene.children.find(({ name }) => name === 'Walls')
+      const skateboard = gltf.scene.children.find(({ name }) => name === 'Skateboard')
+      skateboard.receiveShadow = false
       wallsObject.castShadow = false
       if (node.isMesh) {
         node.castShadow = true;

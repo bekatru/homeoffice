@@ -37,3 +37,4 @@ End Table by Don Carson [CC-BY] (https://creativecommons.org/licenses/by/3.0/) v
 Bookcase Open by Kenney (https://poly.pizza/m/MTH8ZwnA27)
 Rug Round by Kenney (https://poly.pizza/m/jeDDiN69Ze)
 Ceiling Lamp by Zsky [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/zq1Fus3I15)
+Skateboard by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/cms3_9IcYbB)
