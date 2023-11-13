@@ -37,13 +37,18 @@ controls.update();
 const ambientLight = new THREE.AmbientLight(0xffffff, 1)
 scene.add(ambientLight)
 
-const floorGeometry = new THREE.BoxGeometry( 8, .2, 8 );
-const floorMaterial = new THREE.MeshBasicMaterial( {color: 0x595959} );
-const floorMesh = new THREE.Mesh( floorGeometry, floorMaterial );
 
-floorMesh.position.set(0, -0.1, 0)
+const spotLight = new THREE.SpotLight(0xFFEDCD)
+spotLight.position.set(0, 3, 0)
+spotLight.angle = Math.PI / 2.3
+spotLight.power = 80
+spotLight.penumbra = 1
+spotLight.castShadow = true
 
-scene.add( floorMesh );
+scene.add(spotLight)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(spotLightHelper);
 
 function animate() {
   requestAnimationFrame( animate );
