@@ -40,3 +40,5 @@ Ceiling Lamp by Zsky [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via 
 Skateboard by Poly by Google [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/cms3_9IcYbB)
 Side Table by Kenney (https://poly.pizza/m/R7Iq0qPgdr)
 Standing lamp by jeremy [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/7AqWZQIaCQf)
+Window by Justin Randall [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/dwBpM-aSA_t)
+Window Blinds by Alex Safayan [CC-BY] (https://creativecommons.org/licenses/by/3.0/) via Poly Pizza (https://poly.pizza/m/0cXeRYAnxCi)
