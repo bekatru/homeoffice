@@ -14,15 +14,15 @@ const SHOW_LIGHT_HELPERS = true
 const scene = new THREE.Scene();
 
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 5;
 
 if (SHOW_GRID) {
   const size = 8;
   const divisions = 8;
-  const gridHelper = new THREE.GridHelper( size, divisions );
+  const gridHelper = new THREE.GridHelper(size, divisions);
 
-  scene.add( gridHelper );
+  scene.add(gridHelper);
 }
 
 //Renderer
@@ -42,21 +42,28 @@ controls.update();
 
 //Loader
 const loader = new GLTFLoader();
+let mixer
 loader.load(
   './assets/models/homeoffice.glb',
   function (gltf) {
-    gltf.scene.traverse(function (node) {
-      const wallsObject = gltf.scene.children.find(({ name }) => name === 'Walls')
-      const skateboard = gltf.scene.children.find(({ name }) => name === 'Skateboard')
+    const model = gltf.scene
+    model.traverse(function (node) {
+      const wallsObject = model.children.find(({name}) => name === 'Walls')
+      const skateboard = model.children.find(({name}) => name === 'Skateboard')
       skateboard.receiveShadow = false
       wallsObject.castShadow = false
       if (node.isMesh) {
         node.castShadow = true;
         node.receiveShadow = true
       }
-
     });
-    scene.add(gltf.scene);
+    mixer = new THREE.AnimationMixer(model)
+    const clips = gltf.animations,
+      clip = THREE.AnimationClip.findByName(clips, 'DeskChairTopAction'),
+      action = mixer.clipAction(clip);
+
+    action.play()
+    scene.add(model);
   },
   undefined,
   function (error) {
@@ -89,7 +96,6 @@ pointLight2.intensity = 0.5
 pointLight2.position.set(-2.2, 0.9, -0.48)
 
 
-
 scene.add(
   spotLight,
   hemisphereLight,
@@ -104,9 +110,12 @@ if (SHOW_LIGHT_HELPERS) {
   )
 }
 
+const clock = new THREE.Clock()
+
 function animate() {
-  requestAnimationFrame( animate );
-  renderer.render( scene, camera );
+  if (mixer) mixer.update(clock.getDelta())
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
 }
 
 animate();
