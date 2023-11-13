@@ -5,9 +5,11 @@ import {
 import {
   GLTFLoader
 } from 'three/addons/loaders/GLTFLoader.js';
+import {PointLightHelper} from "three";
 
 
 const SHOW_GRID = false
+const SHOW_LIGHT_HELPERS = false
 
 const scene = new THREE.Scene();
 
@@ -74,10 +76,23 @@ const hemisphereLight = new THREE.HemisphereLight(0xFFEDCD)
 hemisphereLight.position.set(0, 3, 0)
 hemisphereLight.intensity = 0.3
 
+const pointLight = new THREE.PointLight(0xFFEDCD)
+const pointLightHelper = new PointLightHelper(pointLight, 0.4)
+pointLight.castShadow = true
+pointLight.intensity = 0.5
+pointLight.position.set(1.45, 1, -1)
+
 scene.add(
   spotLight,
   hemisphereLight,
+  pointLight
 )
+
+if (SHOW_LIGHT_HELPERS) {
+  scene.add(
+    pointLightHelper
+  )
+}
 
 function animate() {
   requestAnimationFrame( animate );
