@@ -5,11 +5,15 @@ import {
 import {
   GLTFLoader
 } from 'three/addons/loaders/GLTFLoader.js';
-import {PointLightHelper} from "three";
+import {
+  HemisphereLightHelper,
+  PointLightHelper,
+  SpotLightHelper
+} from "three";
 
 
 const SHOW_GRID = false
-const SHOW_LIGHT_HELPERS = true
+const SHOW_LIGHT_HELPERS = false
 
 const scene = new THREE.Scene();
 
@@ -49,8 +53,12 @@ loader.load(
     const model = gltf.scene
     model.traverse(function (node) {
       const wallsObject = model.children.find(({name}) => name === 'Walls')
-      const skateboard = model.children.find(({name}) => name === 'Skateboard')
-      skateboard.receiveShadow = false
+      const ceilingLamp = model.children.find(({name}) => name === 'CeilingLampBottom')
+      const coffeeTable = model.children.find(({name}) => name === 'CoffeeTable')
+      coffeeTable.castShadow = true
+      coffeeTable.receiveShadow = false
+      ceilingLamp.castShadow = false
+      ceilingLamp.receiveShadow = false
       wallsObject.castShadow = false
       if (node.isMesh) {
         node.castShadow = true;
@@ -73,27 +81,30 @@ loader.load(
 
 
 const spotLight = new THREE.SpotLight(0xFFEDCD)
-spotLight.position.set(0, 3, 0)
+const spotLightHelper = new SpotLightHelper(spotLight)
+spotLight.position.set(0, 2.5, 2.2)
 spotLight.angle = Math.PI / 2.3
-spotLight.power = 80
+spotLight.power = 100
 spotLight.penumbra = 1
 spotLight.castShadow = true
+spotLight.shadow.bias = -0.0005
 
 const hemisphereLight = new THREE.HemisphereLight(0xFFEDCD)
-hemisphereLight.position.set(0, 3, 0)
+const hemisphereLightHelper = new HemisphereLightHelper(hemisphereLight)
+hemisphereLight.position.set(0, 2.5, 2.2)
 hemisphereLight.intensity = 0.5
 
 const pointLight = new THREE.PointLight(0xFFEDCD)
-const pointLightHelper = new PointLightHelper(pointLight, 0.4)
+const pointLightHelper = new PointLightHelper(pointLight, 0.2)
+pointLight.position.set(1.45, 1, -1)
 pointLight.castShadow = true
 pointLight.intensity = 0.5
-pointLight.position.set(1.45, 1, -1)
 
 const pointLight2 = new THREE.PointLight(0xFFEDCD)
 const pointLightHelper2 = new PointLightHelper(pointLight2, 0.2)
+pointLight2.position.set(-2.2, 0.9, -0.48)
 pointLight2.castShadow = true
 pointLight2.intensity = 0.5
-pointLight2.position.set(-2.2, 0.9, -0.48)
 
 
 scene.add(
@@ -105,6 +116,8 @@ scene.add(
 
 if (SHOW_LIGHT_HELPERS) {
   scene.add(
+    spotLightHelper,
+    hemisphereLightHelper,
     pointLightHelper,
     pointLightHelper2
   )
