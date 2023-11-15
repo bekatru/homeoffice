@@ -23,7 +23,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1
+renderer.toneMappingExposure = 2
 document.body.appendChild(renderer.domElement);
 
 //Controls
@@ -42,27 +42,17 @@ loader.load(
       .find(({name}) => name === 'Point').children
       .find(({name}) => name === 'Point_Orientation')
 
+    const spot = model.children
+      .find(({name}) => name === 'DeskLight').children
+      .find(({name}) => name === 'DeskLight_Orientation')
+
+    spot.castShadow = true
+    spot.decay = 2
+    spot.power = 7
+    spot.shadow.camera.near = 0.001
+
     point.castShadow = true
-    point.power = 60
-    point.shadow.bias = -0.00005
-
-
-    const lampRight = model.children
-      .find(({name}) => name === 'LampRight').children
-      .find(({name}) => name === 'LampRight_Orientation')
-
-    lampRight.castShadow = true
-    lampRight.power = 10
-    lampRight.shadow.bias = -0.00005
-
-
-    const lampLeft = model.children
-      .find(({name}) => name === 'LampLeft').children
-      .find(({name}) => name === 'LampLeft_Orientation')
-
-    lampLeft.castShadow = true
-    lampLeft.power = 10
-    lampLeft.shadow.bias = -0.00005
+    point.decay = 4
 
     model.traverse(function (node) {
       if (node.isMesh) {
