@@ -44,7 +44,7 @@ loader.load(
 
     point.castShadow = true
     point.power = 60
-    point.shadow.bias = -0.0001
+    point.shadow.bias = -0.00005
 
 
     const lampRight = model.children
@@ -53,7 +53,7 @@ loader.load(
 
     lampRight.castShadow = true
     lampRight.power = 10
-    lampRight.shadow.bias = -0.0001
+    lampRight.shadow.bias = -0.00005
 
 
     const lampLeft = model.children
@@ -62,7 +62,7 @@ loader.load(
 
     lampLeft.castShadow = true
     lampLeft.power = 10
-    lampLeft.shadow.bias = -0.0001
+    lampLeft.shadow.bias = -0.00005
 
     model.traverse(function (node) {
       if (node.isMesh) {
