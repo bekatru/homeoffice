@@ -23,7 +23,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 2
+renderer.toneMappingExposure = 1.5
 document.body.appendChild(renderer.domElement);
 
 //Controls
@@ -48,11 +48,12 @@ loader.load(
 
     spot.castShadow = true
     spot.decay = 2
-    spot.power = 7
+    spot.power = 4
     spot.shadow.camera.near = 0.001
 
     point.castShadow = true
     point.decay = 4
+    point.shadow.camera.near = 0.1
 
     model.traverse(function (node) {
       if (node.isMesh) {
@@ -60,6 +61,7 @@ loader.load(
         node.receiveShadow = true
       }
     });
+
     mixer = new THREE.AnimationMixer(model)
     const clips = gltf.animations,
       clip = THREE.AnimationClip.findByName(clips, 'DeskChairTopAction'),
@@ -75,6 +77,9 @@ loader.load(
 );
 
 const clock = new THREE.Clock()
+
+const ambientLight = new THREE.AmbientLight(0xFFE1BC, 0.4)
+scene.add(ambientLight)
 
 function animate() {
   if (mixer) mixer.update(clock.getDelta())
