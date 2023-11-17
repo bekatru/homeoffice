@@ -23,7 +23,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 1.5
+renderer.toneMappingExposure = 3
 document.body.appendChild(renderer.domElement);
 
 //Controls
@@ -52,7 +52,7 @@ loader.load(
     spot.shadow.camera.near = 0.001
 
     point.castShadow = true
-    point.decay = 4
+    point.decay = 5
     point.shadow.camera.near = 0.1
 
     model.traverse(function (node) {
@@ -78,7 +78,7 @@ loader.load(
 
 const clock = new THREE.Clock()
 
-const ambientLight = new THREE.AmbientLight(0xFFE1BC, 0.4)
+const ambientLight = new THREE.AmbientLight(0xFFE1BC, 0.1)
 scene.add(ambientLight)
 
 function animate() {
