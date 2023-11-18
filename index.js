@@ -5,6 +5,7 @@ import {
 import {
   GLTFLoader
 } from 'three/addons/loaders/GLTFLoader.js';
+import {RGBELoader} from "three/addons/loaders/RGBELoader";
 
 
 const scene = new THREE.Scene();
@@ -23,7 +24,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true
 renderer.outputEncoding = THREE.sRGBEncoding
 renderer.toneMapping = THREE.ACESFilmicToneMapping
-renderer.toneMappingExposure = 3
+renderer.toneMappingExposure = 0.5
 document.body.appendChild(renderer.domElement);
 
 //Controls
@@ -38,6 +39,11 @@ loader.load(
   function (gltf) {
     const model = gltf.scene
 
+    const sun = model.children
+      .find(({name}) => name === 'Sun').children
+      .find(({name}) => name === 'Sun_Orientation')
+    console.log(sun)
+
     const point = model.children
       .find(({name}) => name === 'Point').children
       .find(({name}) => name === 'Point_Orientation')
@@ -45,6 +51,11 @@ loader.load(
     const spot = model.children
       .find(({name}) => name === 'DeskLight').children
       .find(({name}) => name === 'DeskLight_Orientation')
+
+    sun.castShadow = true
+    sun.intensity = 4
+    sun.shadow.bias = -0.00005
+    sun.shadow.camera.near = 0.001
 
     spot.castShadow = true
     spot.decay = 2
@@ -76,10 +87,14 @@ loader.load(
   }
 );
 
-const clock = new THREE.Clock()
+const rgbeLoader = new RGBELoader()
+rgbeLoader.load('./assets/hdr/envmap.hdr', function (texture) {
+  texture.mapping = THREE.EquirectangularReflectionMapping;
+  scene.background = texture;
+  scene.environment = texture
+})
 
-const ambientLight = new THREE.AmbientLight(0xFFE1BC, 0.1)
-scene.add(ambientLight)
+const clock = new THREE.Clock()
 
 function animate() {
   if (mixer) mixer.update(clock.getDelta())
